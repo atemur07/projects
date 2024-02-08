@@ -1,0 +1,59 @@
+#include <stdio.h>
+#define MAX 10
+void bubble(int array[MAX]) {
+    int temp = 0;
+    for(int i = 0; i<MAX; i++) {
+        for(int j = 0; j<MAX-1; j++) {
+            if(array[j] > array[j+1]){
+                temp = array[j+1];
+                array[j+1] = array[j];
+                array[j] = temp;
+
+            }
+        }
+    }
+
+}
+int* fusione(int array1[MAX],int array2[MAX]) {
+    int giganto[MAX+MAX];
+    int temp=0;
+    for(int i = 0; i<10; i++) {
+        giganto[i]=array1[i];
+    }
+    for(int i = 10; i<20; i++) {
+        giganto[i]=array2[i];
+    }
+    for(int i = 0; i<MAX +MAX; i++) {
+        for(int j = 0; j<MAX+MAX-1; j++) {
+            if(giganto[j]>giganto[j+1]){
+                temp = giganto[j];
+                giganto[j]=giganto[j+1];
+                giganto[j+1]= temp;
+            }
+        }
+    }
+    return giganto;
+
+
+}
+int main() {
+    int array1[MAX], array2[MAX];
+    printf("Inserisci 10 valori interni: ");
+    for(int i = 0; i< MAX; i++) {
+        scanf("%d", &array1[i]);
+    }
+    bubble(array1);
+    printf("Inserisci 10 valori interni: ");
+    for(int i = 0; i< MAX; i++) {
+        scanf("%d", &array2[i]);
+    }
+    bubble(array2);
+    for(int i = 0; i<20; i++) {
+        printf("%d", fusione(array1, array2)[i]);
+        printf(" ");
+    }
+
+
+
+    return 0;
+}

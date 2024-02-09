@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#define MAX 3
+float modulo(float comp[MAX][2], int i);
+float* somma(float comp[MAX][2]);
+int confronto(float comp[MAX][2]);
+int main() {
+    float comp[MAX][2];
+    int maggiore;
+    for(int i = 0; i<MAX; i++) {
+        printf("Inserisci parte reale di %d. numero complesso: ", i+1);
+        scanf("%f", &comp[i][0]);
+        printf("Insericsi parte immaginaria di %d. numero complesso: ", i+1);
+        scanf("%f", &comp[i][1]);
+
+    }
+    maggiore = confronto(comp);
+
+    float *psomma = somma(comp);
+    printf("Parte reale di somma: %0.2f\n", *psomma);
+    printf("Parte immaginario di somma: %0.2f\n", *(psomma+1));
+
+    printf("Parte reale della maggiore: %0.2f\n", comp[maggiore][0]);
+    printf("Parte immaginaria della maggiore: %0.2f\n", comp[maggiore][1]);
+
+    printf("Modulo del maggiore: %0.2f", modulo(comp, maggiore));
+
+    free(psomma);
+
+    return 0;
+}
+
+float modulo(float comp[MAX][2], int i) {
+    float modulo;
+    modulo = sqrt(comp[i][0]*comp[i][0] + comp[i][1]*comp[i][1]);
+    return modulo;
+}
+
+float* somma(float comp[MAX][2]) {
+    float* psomma = malloc(2 * sizeof(float)); // Allocate memory
+    if (psomma == NULL) {
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
+    for(int i = 0; i<MAX; i++) {
+        *psomma = *psomma + comp[i][0];
+        *(psomma + 1) = *(psomma + 1) + comp[i][1];
+    }
+
+    return psomma;
+}
+
+int confronto(float comp[MAX][2]) {
+    int counter = 0;
+    for(int i = 0; i<MAX; i++) {
+        if(modulo(comp, i) > modulo(comp, counter)) {
+            counter = i;
+
+        }
+    }
+    return counter;
+}
